@@ -1,0 +1,33 @@
+namespace grpcexample;
+
+enum PhoneType: byte {
+  MOBILE,
+  HOME,
+  WORK
+}
+
+table PhoneNumber {
+  number: string;
+  ptype: PhoneType;
+}
+
+table Person {
+  name: string;
+  id: int;
+  email: string;
+
+  phone: [PhoneNumber];
+}
+
+table Request {
+}
+
+table Result {
+  items: [Person];
+}
+
+rpc_service GRPCExample {
+  GetPerson(Request): Person;
+  ListPeople(Request): Person (streaming: "server");
+  ArrayPeople(Request): Result;
+}
